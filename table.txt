@@ -1,0 +1,103 @@
+alter table status convert to character set utf8;
+
+
+create table CUSTOMER (
+ID INT(20) not null auto_increment primary key,
+NAME VARCHAR(10) not null,
+REG_NUM1 VARCHAR(10),
+REG_NUM2 VARCHAR(10),
+JOB VARCHAR(200),
+TEL1 VARCHAR(10),
+TEL2 VARCHAR(10),
+TEL3 VARCHAR(10),
+RECEIVE VARCHAR(50),
+MEMO VARCHAR(500),
+STATUS VARCHAR(200),
+MANAGE_YN VARCHAR(1),
+MANAGER VARCHAR(50),
+CREATED DATETIME
+)
+
+create table MANAGER (
+SEQ INT(20) not null auto_increment primary key,
+ID VARCHAR(200) not NULL,
+PW VARCHAR(100) not NULL,
+NAME VARCHAR(10) not null,
+POSITION VARCHAR(20),
+TEL1 VARCHAR(10),
+TEL2 VARCHAR(10),
+TEL3 VARCHAR(10),
+ETCTEL1 VARCHAR(10),
+ETCTEL2 VARCHAR(10),
+ETCTEL3 VARCHAR(10),
+STATUS INT(1),
+CREATED DATETIME
+)
+
+create table STATUS 
+(id int(20) not null auto_increment primary key,
+name varchar(20) not null,
+created datetime);
+
+insert into status (name,  created) values ('DB배정', now());
+insert into status (name,  created) values ('재통화예정', now());
+insert into status (name,  created) values ('진행유도중', now());
+insert into status (name,  created) values ('서류준비중', now());
+insert into status (name,  created) values ('상담후부재', now());
+insert into status (name,  created) values ('진행중', now());
+insert into status (name,  created) values ('가승인', now());
+insert into status (name,  created) values ('승인완료', now());
+insert into status (name,  created) values ('부재', now());
+insert into status (name,  created) values ('본인취소', now());
+insert into status (name,  created) values ('금리불만', now());
+insert into status (name,  created) values ('진행처없음', now());
+insert into status (name,  created) values ('A/S요청', now());
+insert into status (name,  created) values ('A/S불가', now());
+insert into status (name,  created) values ('A/S확정', now());
+insert into status (name,  created) values ('수정완료', now());
+insert into status (name,  created) values ('관리', now());
+
+
+create table CONFIRMIP (
+ID INT(20) not null auto_increment primary key,
+IP VARCHAR(30) NOT NULL,
+CREATED DATETIME
+)
+
+CREATE TABLE DAILYLOG (
+ID INT(20) not null auto_increment primary key,
+REFEREE VARCHAR(20),
+NAME VARCHAR(20),
+CUSTOMERID INT(20),
+FC VARCHAR(50),
+MONEY INT(20),
+DMONEY INT(20),
+DBDATE VARCHAR(10),
+DEPOSITDATE VARCHAR(10),
+MANAGER VARCHAR(20),
+STATUS INT(1),
+CREATED DATETIME
+)
+
+CREATE TABLE BOARD(
+ID INT(20) not null auto_increment primary key,
+WRITER VARCHAR(20),
+TITLE VARCHAR(500),
+CONTENT VARCHAR(4000),
+CREATED DATETIME
+)
+
+create table FC(
+ID INT(20) not null auto_increment primary key,
+NAME VARCHAR(20) NOT NULL,
+CREATED DATETIME
+)
+
+
+create table MEMO (
+ID INT(20) not null auto_increment primary key,
+CUSTOMERID INT(20),
+WRITER VARCHAR(20),
+MEMO VARCHAR(500),
+CREATED DATETIME DEFAULT NOW()
+)
