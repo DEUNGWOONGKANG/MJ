@@ -105,14 +105,12 @@ public class ManagerController {
 	
 	//메뉴 액션
   	@GetMapping("/menu/{menu}") 
-  	public ModelAndView goMenu(@PathVariable("menu") String menu, HttpServletRequest request, Criteria cri, SearchCustomerVO searchCustomerVO) throws Exception { 
+  	public ModelAndView goMenu(@PathVariable("menu") String menu, HttpServletRequest request, Criteria cri, SearchCustomerVO searchCustomerVO,SearchDailyLogVO searchDailyLogVO) throws Exception { 
   		ModelAndView nextView = null;
   		HttpSession httpSession = request.getSession(true);
   		SearchBoardVO searchBoardVO = new SearchBoardVO(); 
   		SearchManagerVO searchManagerVO = new SearchManagerVO();
   		searchManagerVO.setSearchStatus(9);
-  		SearchDailyLogVO searchDailyLogVO = new SearchDailyLogVO();
-  		searchDailyLogVO.setSearchStatus(9);
 		if(menu.equals("menu0")){ //공지사항
 			nextView = boardList(searchBoardVO, request, cri);
 		}else if(menu.equals("menu1")){ //고객관리
@@ -231,6 +229,9 @@ public class ManagerController {
 		if(!manager.getPosition().equals("관리자")) {
 			search.setManager(manager.getName());
 		}
+		if(search.getName() == null) {
+			search.setSearchStatus(9);
+		}
 		
   		search.setCri(cri);
   		//일지리스트
@@ -240,6 +241,13 @@ public class ManagerController {
   		PageMaker pageMaker = new PageMaker();
   		pageMaker.setCri(cri);
   		pageMaker.setTotalCount(totalCnt);
+  		pageMaker.setDbenddate(search.getDbenddate());
+  		pageMaker.setDbstartdate(search.getDbstartdate());
+  		pageMaker.setName(search.getName());
+  		pageMaker.setManager(search.getManager());
+  		pageMaker.setSearchStatus(String.valueOf(search.getSearchStatus()));
+  		pageMaker.setDepositenddate(search.getDepositenddate());
+  		pageMaker.setDepositstartdate(search.getDepositstartdate());
   		
   		nextView.addObject("pageMaker", pageMaker);
   		nextView.addObject("dailyLogList", dailyLogList);

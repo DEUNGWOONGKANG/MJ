@@ -18,6 +18,52 @@ public class PageMaker {
 	private String enddate;
 	private String manager;
 	
+	private String name;
+	private String dbstartdate;
+	private String dbenddate;
+	private String depositstartdate;
+	private String depositenddate;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDbstartdate() {
+		return dbstartdate;
+	}
+
+	public void setDbstartdate(String dbstartdate) {
+		this.dbstartdate = dbstartdate;
+	}
+
+	public String getDbenddate() {
+		return dbenddate;
+	}
+
+	public void setDbenddate(String dbenddate) {
+		this.dbenddate = dbenddate;
+	}
+
+	public String getDepositstartdate() {
+		return depositstartdate;
+	}
+
+	public void setDepositstartdate(String depositstartdate) {
+		this.depositstartdate = depositstartdate;
+	}
+
+	public String getDepositenddate() {
+		return depositenddate;
+	}
+
+	public void setDepositenddate(String depositenddate) {
+		this.depositenddate = depositenddate;
+	}
+
 	public String getSearchKey() {
 		return searchKey;
 	}
@@ -130,6 +176,23 @@ public class PageMaker {
 							.build();
 		String uri = uriComponents.toUriString();
 		   
+		return uri;
+	}
+	public String makeLogQuery(int page) {
+		UriComponents uriComponents =
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("name", name)
+				.queryParam("manager", manager)
+				.queryParam("dbstartdate", dbstartdate)
+				.queryParam("dbenddate", dbenddate)
+				.queryParam("depositstartdate", depositstartdate)
+				.queryParam("depositenddate", depositenddate)
+				.queryParam("searchStatus", searchStatus)
+				.build();
+		String uri = uriComponents.toUriString();
+		
 		return uri;
 	}
 }
