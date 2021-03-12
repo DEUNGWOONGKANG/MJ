@@ -9,16 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.project.mj.manager.domain.BoardVO;
 import com.project.mj.manager.domain.ConfirmVO;
-import com.project.mj.manager.domain.Criteria;
 import com.project.mj.manager.domain.CustomerVO;
 import com.project.mj.manager.domain.DailyLogVO;
 import com.project.mj.manager.domain.FcVO;
 import com.project.mj.manager.domain.ManagerVO;
 import com.project.mj.manager.domain.MemoVO;
-import com.project.mj.manager.domain.SearchBoardVO;
-import com.project.mj.manager.domain.SearchCustomerVO;
-import com.project.mj.manager.domain.SearchDailyLogVO;
-import com.project.mj.manager.domain.SearchManagerVO;
+import com.project.mj.manager.domain.SearchVO;
 import com.project.mj.manager.domain.StatusVO;
 
 @Repository
@@ -32,11 +28,11 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+".managerLogin", managerVO);
 	}
 
-	public List<CustomerVO> getCustomerList(SearchCustomerVO search) {
+	public List<CustomerVO> getCustomerList(SearchVO search) {
 		return sqlSession.selectList(namespace+".getCustomerList", search);
 	}
 
-	public int customerCnt(SearchCustomerVO search) {
+	public int customerCnt(SearchVO search) {
 		return sqlSession.selectOne(namespace+".customerCnt", search);
 	}
 
@@ -52,11 +48,11 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+".getCustomerInfo", id);
 	}
 
-	public List<ManagerVO> getManagerList(SearchManagerVO search) {
+	public List<ManagerVO> getManagerList(SearchVO search) {
 		return sqlSession.selectList(namespace+".getManagerList", search);
 	}
 
-	public int managerCnt(SearchManagerVO search) {
+	public int managerCnt(SearchVO search) {
 		return sqlSession.selectOne(namespace+".managerCnt", search);
 	}
 
@@ -104,11 +100,11 @@ public class ManagerDAO {
 		return sqlSession.insert(namespace+".insertDailyLog", log);
 	}
 
-	public List<DailyLogVO> getDailyLogList(SearchDailyLogVO search) {
+	public List<DailyLogVO> getDailyLogList(SearchVO search) {
 		return sqlSession.selectList(namespace+".getDailyLogList", search);
 	}
 
-	public int dailyLogCnt(SearchDailyLogVO search) {
+	public int dailyLogCnt(SearchVO search) {
 		return sqlSession.selectOne(namespace+".dailyLogCnt", search);
 	}
 
@@ -140,7 +136,7 @@ public class ManagerDAO {
 		return sqlSession.update(namespace+".updateDailyLog", log);
 	}
 
-	public List<DailyLogVO> getGraphList(SearchDailyLogVO search) {
+	public List<DailyLogVO> getGraphList(SearchVO search) {
 		return sqlSession.selectList(namespace+".getGraphList", search);
 	}
 
@@ -160,7 +156,7 @@ public class ManagerDAO {
 		return sqlSession.update(namespace+".changeManager", vo);
 	}
 
-	public List<BoardVO> getBoardList(SearchBoardVO search) {
+	public List<BoardVO> getBoardList(SearchVO search) {
 		return sqlSession.selectList(namespace+".getBoardList", search);
 	}
 	
@@ -168,7 +164,7 @@ public class ManagerDAO {
 		return sqlSession.selectList(namespace+".getMemoList", id);
 	}
 
-	public int getBoardCnt(SearchBoardVO search) {
+	public int getBoardCnt(SearchVO search) {
 		return sqlSession.selectOne(namespace+".getBoardCnt", search);
 	}
 

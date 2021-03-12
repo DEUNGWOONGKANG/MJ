@@ -24,6 +24,25 @@ public class PageMaker {
 	private String depositstartdate;
 	private String depositenddate;
 	
+	private String searchWriter;
+	private String searchTitle;
+	
+	public String getSearchWriter() {
+		return searchWriter;
+	}
+
+	public void setSearchWriter(String searchWriter) {
+		this.searchWriter = searchWriter;
+	}
+
+	public String getSearchTitle() {
+		return searchTitle;
+	}
+
+	public void setSearchTitle(String searchTitle) {
+		this.searchTitle = searchTitle;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -168,11 +187,11 @@ public class PageMaker {
 		UriComponentsBuilder.newInstance()
 						    .queryParam("page", page)
 							.queryParam("perPageNum", cri.getPerPageNum())
-							.queryParam("searchKey", searchKey)
 							.queryParam("searchStatus", searchStatus)
 							.queryParam("searchKeyword", searchKeyword)
 							.queryParam("startdate", startdate)
 							.queryParam("enddate", enddate)
+							.queryParam("searchKey", searchKey)
 							.build();
 		String uri = uriComponents.toUriString();
 		   
@@ -190,6 +209,35 @@ public class PageMaker {
 				.queryParam("depositstartdate", depositstartdate)
 				.queryParam("depositenddate", depositenddate)
 				.queryParam("searchStatus", searchStatus)
+				.build();
+		String uri = uriComponents.toUriString();
+		
+		return uri;
+	}
+	
+	public String makeBoardQuery(int page) {
+		UriComponents uriComponents =
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchWriter", searchWriter)
+				.queryParam("searchTitle", searchTitle)
+				.queryParam("startdate", startdate)
+				.queryParam("enddate", enddate)
+				.build();
+		String uri = uriComponents.toUriString();
+		
+		return uri;
+	}
+	
+	public String makeManagerQuery(int page) {
+		UriComponents uriComponents =
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchStatus", searchStatus)
+				.queryParam("searchKey", searchKey)
+				.queryParam("searchKeyword", searchKeyword)
 				.build();
 		String uri = uriComponents.toUriString();
 		

@@ -6,16 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.project.mj.manager.domain.BoardVO;
 import com.project.mj.manager.domain.ConfirmVO;
-import com.project.mj.manager.domain.Criteria;
 import com.project.mj.manager.domain.CustomerVO;
 import com.project.mj.manager.domain.DailyLogVO;
 import com.project.mj.manager.domain.FcVO;
 import com.project.mj.manager.domain.ManagerVO;
 import com.project.mj.manager.domain.MemoVO;
-import com.project.mj.manager.domain.SearchBoardVO;
-import com.project.mj.manager.domain.SearchCustomerVO;
-import com.project.mj.manager.domain.SearchDailyLogVO;
-import com.project.mj.manager.domain.SearchManagerVO;
+import com.project.mj.manager.domain.SearchVO;
 import com.project.mj.manager.domain.StatusVO;
 
 @Service
@@ -23,9 +19,9 @@ public interface ManagerService {
 	
 	public ManagerVO managerLogin(ManagerVO managerVO) throws Exception;
 
-	public List<CustomerVO> getCustomerList(SearchCustomerVO search);
+	public List<CustomerVO> getCustomerList(SearchVO search);
 	
-	public int customerCnt(SearchCustomerVO search);
+	public int customerCnt(SearchVO search);
 
 	public void deleteCustomer(int id);
 
@@ -33,9 +29,9 @@ public interface ManagerService {
 
 	public CustomerVO getCustomerInfo(int id);
 
-	public List<ManagerVO> getManagerList(SearchManagerVO search);
+	public List<ManagerVO> getManagerList(SearchVO search);
 
-	public int managerCnt(SearchManagerVO search);
+	public int managerCnt(SearchVO search);
 
 	public int updateCustomer(CustomerVO customer);
 
@@ -59,9 +55,9 @@ public interface ManagerService {
 
 	public int insertDailyLog(DailyLogVO log);
 
-	public List<DailyLogVO> getDailyLogList(SearchDailyLogVO search);
+	public List<DailyLogVO> getDailyLogList(SearchVO search);
 
-	public int dailyLogCnt(SearchDailyLogVO search);
+	public int dailyLogCnt(SearchVO search);
 
 	public int deleteFc(int id);
 	
@@ -77,7 +73,7 @@ public interface ManagerService {
 
 	public int updateDailyLog(DailyLogVO log);
 
-	public List<DailyLogVO> getGraphList(SearchDailyLogVO search);
+	public List<DailyLogVO> getGraphList(SearchVO search);
 
 	public int statusChange(DailyLogVO vo);
 
@@ -87,9 +83,9 @@ public interface ManagerService {
 
 	public int changeManager(CustomerVO vo);
 
-	public List<BoardVO> getBoardList(SearchBoardVO search);
+	public List<BoardVO> getBoardList(SearchVO search);
 
-	public int boardCnt(SearchBoardVO search);
+	public int boardCnt(SearchVO search);
 
 	public int insertBoard(BoardVO board);
 

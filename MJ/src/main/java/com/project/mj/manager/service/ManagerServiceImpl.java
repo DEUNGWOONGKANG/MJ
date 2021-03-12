@@ -9,16 +9,12 @@ import org.springframework.stereotype.Service;
 import com.project.mj.manager.dao.ManagerDAO;
 import com.project.mj.manager.domain.BoardVO;
 import com.project.mj.manager.domain.ConfirmVO;
-import com.project.mj.manager.domain.Criteria;
 import com.project.mj.manager.domain.CustomerVO;
 import com.project.mj.manager.domain.DailyLogVO;
 import com.project.mj.manager.domain.FcVO;
 import com.project.mj.manager.domain.ManagerVO;
 import com.project.mj.manager.domain.MemoVO;
-import com.project.mj.manager.domain.SearchBoardVO;
-import com.project.mj.manager.domain.SearchCustomerVO;
-import com.project.mj.manager.domain.SearchDailyLogVO;
-import com.project.mj.manager.domain.SearchManagerVO;
+import com.project.mj.manager.domain.SearchVO;
 import com.project.mj.manager.domain.StatusVO;
 
 @Service
@@ -33,12 +29,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<CustomerVO> getCustomerList(SearchCustomerVO search) {
+	public List<CustomerVO> getCustomerList(SearchVO search) {
 		return dao.getCustomerList(search);
 	}
 
 	@Override
-	public int customerCnt(SearchCustomerVO search) {
+	public int customerCnt(SearchVO search) {
 		return dao.customerCnt(search);
 	}
 
@@ -59,12 +55,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<ManagerVO> getManagerList(SearchManagerVO search) {
+	public List<ManagerVO> getManagerList(SearchVO search) {
 		return dao.getManagerList(search);
 	}
 
 	@Override
-	public int managerCnt(SearchManagerVO search) {
+	public int managerCnt(SearchVO search) {
 		return dao.managerCnt(search);
 	}
 
@@ -124,12 +120,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<DailyLogVO> getDailyLogList(SearchDailyLogVO search) {
+	public List<DailyLogVO> getDailyLogList(SearchVO search) {
 		return dao.getDailyLogList(search);
 	}
 
 	@Override
-	public int dailyLogCnt(SearchDailyLogVO search) {
+	public int dailyLogCnt(SearchVO search) {
 		return dao.dailyLogCnt(search);
 	}
 
@@ -170,7 +166,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<DailyLogVO> getGraphList(SearchDailyLogVO search) {
+	public List<DailyLogVO> getGraphList(SearchVO search) {
 		return dao.getGraphList(search);
 	}
 
@@ -195,12 +191,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<BoardVO> getBoardList(SearchBoardVO search) {
+	public List<BoardVO> getBoardList(SearchVO search) {
 		return dao.getBoardList(search);
 	}
 
 	@Override
-	public int boardCnt(SearchBoardVO search) {
+	public int boardCnt(SearchVO search) {
 		return dao.getBoardCnt(search);
 	}
 

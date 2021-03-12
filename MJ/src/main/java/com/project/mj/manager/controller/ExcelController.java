@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -20,19 +18,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.project.mj.manager.domain.Criteria;
 import com.project.mj.manager.domain.CustomerVO;
-import com.project.mj.manager.domain.ManagerVO;
-import com.project.mj.manager.domain.PageMaker;
-import com.project.mj.manager.domain.SearchCustomerVO;
-import com.project.mj.manager.domain.SearchManagerVO;
-import com.project.mj.manager.domain.StatusVO;
 import com.project.mj.manager.service.ManagerService;
 
 @Controller
@@ -43,7 +31,6 @@ public class ExcelController {
 	//엑셀다운받기
 	@RequestMapping(value="/excelDown") 
 	public void excelDown(HttpServletResponse response) throws Exception { 
-		SearchCustomerVO search = new SearchCustomerVO();
 		List<CustomerVO> customerList = service.getCustomerAll(); 
 		
 		// 워크북 생성

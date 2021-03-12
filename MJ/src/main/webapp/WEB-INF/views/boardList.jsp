@@ -150,20 +150,20 @@ function boardInfo(id){
 				<div class="col">
 					<ul class="pagination">
 						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeQuery(pageMaker.startPage - 1)}">&lt;</a></li>
+							<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeBoardQuery(pageMaker.startPage - 1)}">&lt;</a></li>
 						</c:if> 
 						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 							<c:choose>
 								<c:when test="${idx eq pageMaker.cri.page}">
-									<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeQuery(idx)}"><b>${idx}</b></a></li>
+									<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeBoardQuery(idx)}"><b>${idx}</b></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeQuery(idx)}">${idx}</a></li>
+									<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeBoardQuery(idx)}">${idx}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${pageMaker.next}">
-							<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+							<li class="page-item"><a class="page-link" href="/menu/menu0${pageMaker.makeBoardQuery(pageMaker.endPage + 1)}">></a></li>
 						</c:if>
 					</ul>
 				</div>

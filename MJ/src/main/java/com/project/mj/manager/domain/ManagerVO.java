@@ -11,7 +11,7 @@ public class ManagerVO {
 	private String etctel2;
 	private String etctel3;
 	private String position;
-	private int status;
+	private String status;
 	
 	public String getId() {
 		return id;
@@ -67,10 +67,10 @@ public class ManagerVO {
 	public void setEtctel3(String etctel3) {
 		this.etctel3 = etctel3;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getPosition() {

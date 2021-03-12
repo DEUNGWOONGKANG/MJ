@@ -120,20 +120,20 @@ function check(){
 				<div class="col">
 					<ul class="pagination">
 						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeQuery(pageMaker.startPage - 1)}">&lt;</a></li>
+							<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeManagerQuery(pageMaker.startPage - 1)}">&lt;</a></li>
 						</c:if> 
 						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 							<c:choose>
 								<c:when test="${idx eq pageMaker.cri.page}">
-									<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeQuery(idx)}"><b>${idx}</b></a></li>
+									<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeManagerQuery(idx)}"><b>${idx}</b></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeQuery(idx)}">${idx}</a></li>
+									<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeManagerQuery(idx)}">${idx}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${pageMaker.next}">
-							<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+							<li class="page-item"><a class="page-link" href="/menu/menu2${pageMaker.makeManagerQuery(pageMaker.endPage + 1)}">></a></li>
 						</c:if>
 					</ul>
 				</div>

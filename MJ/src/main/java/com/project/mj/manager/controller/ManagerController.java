@@ -1,6 +1,5 @@
 package com.project.mj.manager.controller;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.mj.manager.domain.BoardVO;
@@ -30,10 +27,7 @@ import com.project.mj.manager.domain.FcVO;
 import com.project.mj.manager.domain.ManagerVO;
 import com.project.mj.manager.domain.MemoVO;
 import com.project.mj.manager.domain.PageMaker;
-import com.project.mj.manager.domain.SearchBoardVO;
-import com.project.mj.manager.domain.SearchCustomerVO;
-import com.project.mj.manager.domain.SearchDailyLogVO;
-import com.project.mj.manager.domain.SearchManagerVO;
+import com.project.mj.manager.domain.SearchVO;
 import com.project.mj.manager.domain.StatusVO;
 import com.project.mj.manager.service.ManagerService;
 
@@ -67,12 +61,12 @@ public class ManagerController {
             out.flush();
             confirm = true;
 		}else { 
-			if(userData.getStatus() == 0) { //일치하는 사원 정보가 있지만 STATUS 값이 0인경우 (퇴사)
+			if(userData.getStatus().equals("0")) { //일치하는 사원 정보가 있지만 STATUS 값이 0인경우 (퇴사)
 				response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
 	            out.println("<script>alert('퇴사한 사용자 입니다.'); history.go(-1);</script>");
 	            out.flush();
-			}else if(userData.getStatus() == 1) {//정상사용자의 경우
+			}else if(userData.getStatus().equals("1")) {//정상사용자의 경우
 				nextView = new ModelAndView("main");
 				//세션에 사용자 데이터 저장
 				HttpSession httpSession = request.getSession(true);
@@ -105,22 +99,19 @@ public class ManagerController {
 	
 	//메뉴 액션
   	@GetMapping("/menu/{menu}") 
-  	public ModelAndView goMenu(@PathVariable("menu") String menu, HttpServletRequest request, Criteria cri, SearchCustomerVO searchCustomerVO,SearchDailyLogVO searchDailyLogVO) throws Exception { 
+  	public ModelAndView goMenu(@PathVariable("menu") String menu, HttpServletRequest request, Criteria cri, SearchVO searchVO) throws Exception { 
   		ModelAndView nextView = null;
   		HttpSession httpSession = request.getSession(true);
-  		SearchBoardVO searchBoardVO = new SearchBoardVO(); 
-  		SearchManagerVO searchManagerVO = new SearchManagerVO();
-  		searchManagerVO.setSearchStatus(9);
 		if(menu.equals("menu0")){ //공지사항
-			nextView = boardList(searchBoardVO, request, cri);
+			nextView = boardList(searchVO, request, cri);
 		}else if(menu.equals("menu1")){ //고객관리
-  			nextView = customerList(searchCustomerVO, request, cri);
+  			nextView = customerList(searchVO, request, cri);
   		}else if(menu.equals("menu2")) { //직원관리
-  			nextView = managerList(searchManagerVO, request, cri);
+  			nextView = managerList(searchVO, request, cri);
   		}else if(menu.equals("menu3_1")) { //일지리스트
-  			nextView = dailyLogList(searchDailyLogVO, request, cri);
+  			nextView = dailyLogList(searchVO, request, cri);
   		}else if(menu.equals("menu3_2")) { //정산
-  			nextView = graphList(searchDailyLogVO, request);
+  			nextView = graphList(searchVO, request);
   		}else if(menu.equals("menu4")) { //금융사관리
   			nextView = fcList();
   		}else if(menu.equals("menu5")) { //IP관리
@@ -134,7 +125,7 @@ public class ManagerController {
   	
   	//공지사항
   	@RequestMapping(value="/boardSearch", method=RequestMethod.POST) 
-  	private ModelAndView boardList(SearchBoardVO search, HttpServletRequest request, Criteria cri) {
+  	private ModelAndView boardList(SearchVO search, HttpServletRequest request, Criteria cri) {
   		ModelAndView nextView = new ModelAndView("boardList");
   		HttpSession httpSession = request.getSession();
   		ManagerVO manager = (ManagerVO) httpSession.getAttribute("manager");
@@ -148,6 +139,10 @@ public class ManagerController {
   		PageMaker pageMaker = new PageMaker();
   		pageMaker.setCri(cri);
   		pageMaker.setTotalCount(totalCnt);
+  		pageMaker.setSearchWriter(search.getSearchWriter());
+  		pageMaker.setSearchTitle(search.getSearchTitle());
+  		pageMaker.setStartdate(search.getStartdate());
+  		pageMaker.setEnddate(search.getEnddate());
   		
   		nextView.addObject("pageMaker", pageMaker);
   		nextView.addObject("boardList", boardList);
@@ -157,7 +152,7 @@ public class ManagerController {
   	}
   	//고객관리
   	@RequestMapping(value="/customerSearch", method=RequestMethod.POST) 
-	private ModelAndView customerList(SearchCustomerVO search, HttpServletRequest request, Criteria cri) {
+	private ModelAndView customerList(SearchVO search, HttpServletRequest request, Criteria cri) {
 		ModelAndView nextView = new ModelAndView("customerList");
 		HttpSession httpSession = request.getSession();
   		ManagerVO manager = (ManagerVO) httpSession.getAttribute("manager");
@@ -166,19 +161,22 @@ public class ManagerController {
 		}else{
 			search.setManager("");
 		}
+		if(search.getSearchKey() == null) {
+			search.setSearchKey("name");
+		}
 		search.setCri(cri);
 		//고객리스트
 		List<CustomerVO> customerList = service.getCustomerList(search); 
 		int totalCnt = service.customerCnt(search);
 		List<StatusVO> statusList = service.getStatusList();
 		
-		SearchManagerVO searchManagerVO = new SearchManagerVO();
-		searchManagerVO.setSearchStatus(1);
-		List<ManagerVO> managerList = service.getManagerList(searchManagerVO);
+		SearchVO searchVO = new SearchVO();
+		searchVO.setSearchStatus("1");
+		List<ManagerVO> managerList = service.getManagerList(searchVO);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setSearchKey(search.getSearchKey());
-		pageMaker.setSearchStatus(search.getSearchStatus());
+		pageMaker.setSearchStatus(String.valueOf(search.getSearchStatus()));
 		pageMaker.setSearchKeyword(search.getSearchKeyword());
 		pageMaker.setStartdate(search.getStartdate());
 		pageMaker.setEnddate(search.getEnddate());
@@ -197,7 +195,7 @@ public class ManagerController {
   	
   	//직원관리
   	@RequestMapping(value="/managerSearch", method=RequestMethod.POST) 
-	private ModelAndView managerList(SearchManagerVO search, HttpServletRequest request, Criteria cri) {
+	private ModelAndView managerList(SearchVO search, HttpServletRequest request, Criteria cri) {
 		ModelAndView nextView = new ModelAndView("managerList");
 		
 		search.setCri(cri);
@@ -212,6 +210,9 @@ public class ManagerController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCnt);
+		pageMaker.setSearchStatus(search.getSearchStatus());
+		pageMaker.setSearchKey(search.getSearchKey());
+		pageMaker.setSearchKeyword(search.getSearchKeyword());
 		
 		nextView.addObject("pageMaker", pageMaker);
 		nextView.addObject("managerList", managerList);
@@ -222,7 +223,7 @@ public class ManagerController {
   	
   	//일지 리스트
   	@RequestMapping(value="/dailyLogList", method=RequestMethod.POST) 
-  	private ModelAndView dailyLogList(SearchDailyLogVO search, HttpServletRequest request, Criteria cri) {
+  	private ModelAndView dailyLogList(SearchVO search, HttpServletRequest request, Criteria cri) {
   		ModelAndView nextView = new ModelAndView("dailyLogList");
   		HttpSession httpSession = request.getSession();
   		ManagerVO manager = (ManagerVO) httpSession.getAttribute("manager");
@@ -230,7 +231,7 @@ public class ManagerController {
 			search.setManager(manager.getName());
 		}
 		if(search.getName() == null) {
-			search.setSearchStatus(9);
+			search.setSearchStatus("9");
 		}
 		
   		search.setCri(cri);
@@ -259,7 +260,7 @@ public class ManagerController {
   	
   	//정산 리스트
   	@RequestMapping(value="/graphList", method=RequestMethod.POST) 
-  	private ModelAndView graphList(SearchDailyLogVO search, HttpServletRequest request) {
+  	private ModelAndView graphList(SearchVO search, HttpServletRequest request) {
   		ModelAndView nextView = new ModelAndView("graphList");
   		Date date = new Date();
   		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -370,7 +371,7 @@ public class ManagerController {
   	//확정처리 
   	@RequestMapping(value="/statusChange/{status}/{id}/{page}", method=RequestMethod.GET) 
   	private ModelAndView statusChange(@PathVariable("status") String status, @PathVariable("id") int id, @PathVariable("page") int page, Criteria cri, HttpServletRequest request) {
-  		SearchDailyLogVO searchVO = new SearchDailyLogVO();
+  		SearchVO searchVO = new SearchVO();
   		DailyLogVO vo = new DailyLogVO();
   		if(status.equals("ok")) {
   			vo.setStatus(1);
@@ -379,7 +380,7 @@ public class ManagerController {
   		}
   		vo.setId(id);
   		int ok = service.statusChange(vo);
-  		searchVO.setSearchStatus(9);
+  		searchVO.setSearchStatus("9");
   		cri.setPage(page);
   		ModelAndView nextView = dailyLogList(searchVO, request, cri);
   		
@@ -392,13 +393,13 @@ public class ManagerController {
   	}
   	//고객 상태변경
   	@GetMapping(value="/changeStatus/{id}/{status}/{pageNum}") 
-  	private ModelAndView changeStatus(SearchCustomerVO searchCustomerVO, @PathVariable("status") String status, @PathVariable("id") int id, @PathVariable("pageNum") int page, Criteria cri, HttpServletRequest request) {
+  	private ModelAndView changeStatus(SearchVO searchVO, @PathVariable("status") String status, @PathVariable("id") int id, @PathVariable("pageNum") int page, Criteria cri, HttpServletRequest request) {
   		CustomerVO vo = new CustomerVO();
   		vo.setStatus(status);
   		vo.setId(id);
   		int ok = service.changeStatus(vo);
   		cri.setPage(page);
-  		ModelAndView nextView = customerList(searchCustomerVO, request, cri);
+  		ModelAndView nextView = customerList(searchVO, request, cri);
   		
   		String saveYn = "N";
   		if(ok == 1) {
@@ -420,13 +421,13 @@ public class ManagerController {
   	
   	//고객 담당자변경
   	@GetMapping(value="/changeManager/{id}/{manager}/{pageNum}") 
-  	private ModelAndView changeManager(SearchCustomerVO searchCustomerVO, @PathVariable("manager") String manager, @PathVariable("id") int id, @PathVariable("pageNum") int page, Criteria cri, HttpServletRequest request) {
+  	private ModelAndView changeManager(SearchVO searchVO, @PathVariable("manager") String manager, @PathVariable("id") int id, @PathVariable("pageNum") int page, Criteria cri, HttpServletRequest request) {
   		CustomerVO vo = new CustomerVO();
   		vo.setManager(manager);
   		vo.setId(id);
   		int ok = service.changeManager(vo);
   		cri.setPage(page);
-  		ModelAndView nextView = customerList(searchCustomerVO, request, cri);
+  		ModelAndView nextView = customerList(searchVO, request, cri);
   		
   		String saveYn = "N";
   		if(ok == 1) {
@@ -469,7 +470,7 @@ public class ManagerController {
   	//공지사항 수정페이지
   	@GetMapping("/deleteBoard/{id}") 
   	private ModelAndView deleteBoard(@PathVariable("id") int id, Criteria cri, HttpServletRequest request) {
-  		SearchBoardVO searchVO = new SearchBoardVO();
+  		SearchVO searchVO = new SearchVO();
   		int ok = service.deleteBoard(id);
   		
   		ModelAndView nextView = boardList(searchVO, request, cri);
@@ -603,8 +604,8 @@ public class ManagerController {
   		//상태리스트 조회
   		List<StatusVO> statusList = service.getStatusList();
   		//담당자 리스트
-  		SearchManagerVO search = new SearchManagerVO();
-  		search.setSearchStatus(1);
+  		SearchVO search = new SearchVO();
+  		search.setSearchStatus("1");
   		List<ManagerVO> managerList = service.getManagerList(search);
   		nextView.addObject("statusList", statusList);
   		nextView.addObject("managerList", managerList);
@@ -628,7 +629,7 @@ public class ManagerController {
 	//고객삭제
 	@GetMapping("/deleteCustomer/{id}") 
 	private ModelAndView deleteCustomer(@PathVariable("id") int id, Criteria cri, HttpServletRequest request) {
-		SearchCustomerVO searchVO = new SearchCustomerVO();
+		SearchVO searchVO = new SearchVO();
 		service.deleteCustomer(id);
 		ModelAndView nextView = customerList(searchVO, request, cri);
 		return nextView;
@@ -645,7 +646,7 @@ public class ManagerController {
 	//일지삭제
 	@GetMapping("/deleteLog/{id}") 
 	private ModelAndView deleteLog(@PathVariable("id") int id, Criteria cri, HttpServletRequest request) {
-		SearchDailyLogVO searchVO = new SearchDailyLogVO();
+		SearchVO searchVO = new SearchVO();
 		service.deleteLog(id);
 		ModelAndView nextView = dailyLogList(searchVO, request, cri);
 		return nextView;
@@ -654,8 +655,8 @@ public class ManagerController {
 	//직원삭제
 	@GetMapping("/deleteManager/{id}") 
 	private ModelAndView deleteManager(@PathVariable("id") String id, Criteria cri, HttpServletRequest request) {
-		SearchManagerVO searchVO = new SearchManagerVO();
-		searchVO.setSearchStatus(9);
+		SearchVO searchVO = new SearchVO();
+		searchVO.setSearchStatus("9");
 		service.deleteManager(id);
 		ModelAndView nextView = managerList(searchVO, request, cri);
 		return nextView;
@@ -712,8 +713,8 @@ public class ManagerController {
 		CustomerVO customer = service.getCustomerInfo(id);
 		List<StatusVO> statusList = service.getStatusList();
 		List<MemoVO> memoList = service.getMemoList(id);
-		SearchManagerVO search = new SearchManagerVO();
-		search.setSearchStatus(1);
+		SearchVO search = new SearchVO();
+		search.setSearchStatus("1");
 		List<ManagerVO> managerList = service.getManagerList(search);
 		
 		nextView.addObject("customer", customer);
