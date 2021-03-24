@@ -176,7 +176,11 @@ public class ManagerController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setSearchKey(search.getSearchKey());
-		pageMaker.setSearchStatus(String.valueOf(search.getSearchStatus()));
+		if(search.getSearchStatus() == null) {
+			pageMaker.setSearchStatus(null);
+		}else{
+			pageMaker.setSearchStatus(String.valueOf(search.getSearchStatus()));
+		}
 		pageMaker.setSearchKeyword(search.getSearchKeyword());
 		pageMaker.setStartdate(search.getStartdate());
 		pageMaker.setEnddate(search.getEnddate());
@@ -210,7 +214,11 @@ public class ManagerController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCnt);
-		pageMaker.setSearchStatus(search.getSearchStatus());
+		if(search.getSearchStatus() == null) {
+			pageMaker.setSearchStatus("9");
+		}else {
+			pageMaker.setSearchStatus(search.getSearchStatus());
+		}
 		pageMaker.setSearchKey(search.getSearchKey());
 		pageMaker.setSearchKeyword(search.getSearchKeyword());
 		
