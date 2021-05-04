@@ -89,11 +89,11 @@ function changeStatus(e, id){
       		<div class="search">	
 		    	<form id="searchForm" action="/dailyLogList" method="post">
 		    		<b>DB일자:</b> 
-		    		<input type="text" class="inputDate" id="dbstartdate" name="dbstartdate" value="${search.dbstartdate }">  
-					~ <input type="text" class="inputDate" id="dbenddate" name="dbenddate" value="${search.dbenddate }">&nbsp;&nbsp;&nbsp;
+		    		<input type="text" class="inputDate" id="dbstartdate" name="dbstartdate" value="${search.dbstartdate }" autocomplete="off">  
+					~ <input type="text" class="inputDate" id="dbenddate" name="dbenddate" value="${search.dbenddate }" autocomplete="off">&nbsp;&nbsp;&nbsp;
 		    		<b>입금일자:</b> 
-		    		<input type="text" class="inputDate" id="depositstartdate" name="depositstartdate" value="${search.depositstartdate }">  
-					~ <input type="text" class="inputDate" id="depositenddate" name="depositenddate" value="${search.depositenddate }">&nbsp;&nbsp;&nbsp;
+		    		<input type="text" class="inputDate" id="depositstartdate" name="depositstartdate" value="${search.depositstartdate }" autocomplete="off">  
+					~ <input type="text" class="inputDate" id="depositenddate" name="depositenddate" value="${search.depositenddate }" autocomplete="off">&nbsp;&nbsp;&nbsp;
 					<br><br>
 			  		<b>작성자:</b> <input type="text" class="inputText" placeholder="작성자" id="manager" name="manager" value="${search.manager }" style="width:100px;">
 			  		<b>고객명:</b> <input type="text" class="inputText" placeholder="고객명" id="name" name="name" value="${search.name }" style="width:100px;">

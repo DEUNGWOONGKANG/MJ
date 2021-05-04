@@ -133,8 +133,8 @@ function makeChart(){
       		<div class="search">	
 		    	<form id="searchForm" action="/graphList" method="post">
 		    		<b>DB일자:</b> 
-		    		<input type="text" class="inputDate" id="dbstartdate" name="dbstartdate" value="${search.dbstartdate }">  
-					~ <input type="text" class="inputDate" id="dbenddate" name="dbenddate" value="${search.dbenddate }">&nbsp;&nbsp;&nbsp;
+		    		<input type="text" class="inputDate" id="dbstartdate" name="dbstartdate" value="${search.dbstartdate }" autocomplete="off">  
+					~ <input type="text" class="inputDate" id="dbenddate" name="dbenddate" value="${search.dbenddate }" autocomplete="off">&nbsp;&nbsp;&nbsp;
 			  		&nbsp;&nbsp;&nbsp;<input type="submit" class="button-gray-small" value="검색">
 			  		<div style="float:right; margin-right:10%;">
 			  			입금 총액 : <input type="text" id="dmoney" name="dmoney" readonly style="width:100px" value="<fmt:formatNumber value='${totaldmoney}' pattern='#,###'/>">

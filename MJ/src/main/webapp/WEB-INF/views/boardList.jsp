@@ -97,8 +97,8 @@ function boardInfo(id){
 		    		<b>작성자:</b> <input type="text" class="inputText" placeholder="작성자" id="searchWriter" name="searchWriter" value="${search.searchWriter }">
 		    		<b>제목:</b> <input type="text" class="inputText" placeholder="제목" id="searchTitle" name="searchTitle" value="${search.searchTitle }">
 			  		<br><br>
-			  		<b>작성일:</b> <input type="text" class="inputDate" id="startdate" name="startdate" value="${search.startdate }">  
-					~ <input type="text" class="inputDate" id="enddate" name="enddate" value="${search.enddate }">
+			  		<b>작성일:</b> <input type="text" class="inputDate" id="startdate" name="startdate" value="${search.startdate }" autocomplete="off">  
+					~ <input type="text" class="inputDate" id="enddate" name="enddate" value="${search.enddate }" autocomplete="off">
 			  		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="button-gray-small" value="검색" onclick="check()">
 				</form>
 			</div>

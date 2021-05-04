@@ -143,8 +143,8 @@ function changeManager(e, id){
 					</select>
 			  		<input type="text" class="inputText" placeholder="검색어" id="searchKeyword" name="searchKeyword" value="${search.searchKeyword }">
 			  		<br><br>
-			  		<b>작성일:</b> <input type="text" class="inputDate" id="startdate" name="startdate" value="${search.startdate }">  
-					~ <input type="text" class="inputDate" id="enddate" name="enddate" value="${search.enddate }">
+			  		<b>작성일:</b> <input type="text" class="inputDate" id="startdate" name="startdate" value="${search.startdate }" autocomplete="off">  
+					~ <input type="text" class="inputDate" id="enddate" name="enddate" value="${search.enddate }" autocomplete="off">
 			  		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="button-gray-small" value="검색" onclick="check()">
 				</form>
 			</div>
