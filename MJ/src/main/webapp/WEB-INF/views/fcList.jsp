@@ -6,7 +6,7 @@
 <%    request.setCharacterEncoding("UTF-8"); %>
 <html>
   <head>
-    <title>LOAN ADMIN PAGE</title>
+    <title>ADMIN PAGE</title>
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">

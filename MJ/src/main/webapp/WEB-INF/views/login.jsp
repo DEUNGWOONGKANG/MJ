@@ -28,7 +28,7 @@ function check(){
 
     <form id="loginForm" action="/login" method="post" class="form login" onsubmit="return check()">
       <header class="login__header">
-        <h3 class="login__title"><img src="/resources/img/logo.jpg" style="width:150px"></h3>
+        <h3 class="login__title"><!-- <img src="/resources/img/logo.jpg" style="width:150px"> --></h3>
       </header>
 
       <div class="login__body">

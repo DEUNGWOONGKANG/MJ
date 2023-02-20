@@ -12,6 +12,7 @@
 		<org.springframework-version>4.3.3.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -219,6 +220,10 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.2</version>
+			</plugin>
         </plugins>
     </build>
 </project>

@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="/resources/css/orionicons.css">
 <meta charset="EUC-KR">
-<title>LOAN ADMIN PAGE</title>
+<title>ADMIN PAGE</title>
 <%
 	String menuName = (String)session.getAttribute("menu");
 %>

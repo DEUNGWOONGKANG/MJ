@@ -136,9 +136,6 @@
 		   <if test="searchStatus != '' and searchStatus != null">
 		   AND A.STATUS = #{searchStatus}
 		   </if>
-		   <if test="searchStatus != '' and searchStatus != null">
-		   AND A.STATUS = #{searchStatus}
-		   </if>
 		   <if test="searchKeyword != '' and searchKeyword != null">
 			   <if test="searchKey == 'name'">
 				   AND A.NAME like CONCAT('%',#{searchKeyword},'%')

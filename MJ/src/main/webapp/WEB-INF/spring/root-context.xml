@@ -18,10 +18,16 @@
 		<!-- 운영용 -->
 		<!-- 로컬용 -->
 		<!-- <property name="url" value="jdbc:mariadb://203.245.44.51:3306/imrnortaty" /> -->
-		<property name="url" value="jdbc:mariadb://localhost:3306/kmj3215" />
-		<property name="username" value="kmj3215" />
+		<!-- 민준 -->
+		<property name="url" value="jdbc:mariadb://localhost:3306/kmj32152" />
+		<property name="username" value="kmj32152" />
 		<property name="password" value="alswnsdl9!" />
-		<!-- 로컬용 -->
+		<!-- 민준 -->
+		<!-- etc -->
+		<!-- <property name="url" value="jdbc:mariadb://localhost:3306/phk0201" />
+		<property name="username" value="phk0201" />
+		<property name="password" value="rlarlxo1!!" /> -->
+		<!--etc -->
 	</bean>
 	 <!--  mybatis와 스프링 연동작을 하기위한 SqlsessionFactory == DB연결 및 SQL의 실행을 대한객체 -->
 	     

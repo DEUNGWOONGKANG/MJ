@@ -6,7 +6,7 @@
 <%    request.setCharacterEncoding("UTF-8"); %>
 <html>
 <head>
-<title>LOAN Admin Page</title>
+<title>ADMIN PAGE</title>
 <!-- Bootstrap CSS-->
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <!-- Font Awesome CSS-->

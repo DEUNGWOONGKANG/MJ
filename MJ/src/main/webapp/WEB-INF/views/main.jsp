@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LOAN ADMIN PAGE</title>
+    <title>ADMIN PAGE</title>
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="/resources/css/bootstrap.css" type="text/css">
     <!-- orion icons-->
